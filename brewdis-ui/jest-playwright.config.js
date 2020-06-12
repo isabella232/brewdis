@@ -3,9 +3,9 @@ module.exports = {
     headless: true
   },
   browsers: ['chromium', 'firefox', 'webkit'],
-  // server: {
-  //   command: 'npm run start',
-  //   launchTimeout: 30000,
-  //   port: 4200
-  // }
+  server: {
+    command: 'npm run start',
+    launchTimeout: 30000,
+    port: 4200
+  }
 }
