@@ -231,7 +231,7 @@ export CONFIG_STORE_ENDPOINT={YOUR_ENDPOINT_VALUE}
 1. Upload the first Feature Flag from the CLI
 
 ```azurecli
-az appconfig kv import -n ${APP_NAME}-config -s file --path data\featureflag.yml --format yaml
+az appconfig kv import -n ${APP_NAME}-config -s file --path data/featureflag.yml --format yaml
 ```
 
 Your Feature Flag has now been added to Azure App Configuration. You can view it in the portal by going to your App Configuration instance, and selecting Feature manager. Here you will see a key beta, which is your feature flag and it currently has a state of conditional. If you right click on the row and select edit you will see the feature flag information.
