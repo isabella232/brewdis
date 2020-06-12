@@ -1,5 +1,9 @@
 const { categories, products, availability } = require('./responses');
 
+const appUrl = (() => {
+  return process.env.APP_URL || 'http://localhost:4200';
+})();
+
 describe('brewdis tests', () => {
   jest.setTimeout(40 * 1000);
   let page;
@@ -14,7 +18,7 @@ describe('brewdis tests', () => {
 
   beforeEach(async() => {
     page = await context.newPage();
-    await page.goto('http://localhost:4200/');
+    await page.goto(appUrl);
   });
 
   it('should have correct title', async () => {

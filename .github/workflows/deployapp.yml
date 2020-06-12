@@ -115,3 +115,39 @@ jobs:
               STOMP_HOST=${SPRING_CLOUD_SERVICE}-${SPRING_CLOUD_APP}.azuremicroservices.io \
               STOMP_PORT=$STOMP_PORT \
               CONFIG_STORE_ENDPOINT=$CONFIG_STORE_ENDPOINT
+
+    - name: Save deployment url to a file
+      run: echo -n "https://$SPRING_CLOUD_SERVICE-$SPRING_CLOUD_APP.azuremicroservices.io" > deployment_url
+      with:
+        name: deployment_url
+
+    - name: Upload deployment url as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: deployment_url
+        path: deployment_url
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+    needs: [terraform, configure_app]
+    env:
+      APP_URL: "https://brewredis-prod-storefront.azuremicroservices.io"
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - uses: microsoft/playwright-github-action@v1
+      - name: Install dependencies
+        run: cd brewdis-ui && npm install
+      - name: Download deployment url artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: deployment_url
+      - name: Read deployment url from file and set as env var
+        run: cat deployment_url
+      - name: Run Playwright tests
+        run: cd brewdis-ui && npm run e2e
+      - uses: actions/upload-artifact@v2
+        with:
+          name: e2e-artifacts
+          path: brewdis-ui/__tests__/artifacts
