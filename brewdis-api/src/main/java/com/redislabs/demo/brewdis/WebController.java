@@ -129,7 +129,6 @@ class WebController {
 		
 		log.error("Beta value: " + showAvailabilityCount);
 		
-		boolean showAvailabilityCount = featureManager.isEnabledAsync("beta").block();
 		results.setShowAvailabilityCount(showAvailabilityCount);
 		if (showAvailabilityCount) {
 			for (SearchResult<String, String> result : results.getResults()) {
