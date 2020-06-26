@@ -31,10 +31,10 @@ describe('brewdis tests', () => {
       page.keyboard.press('Enter'),
       page.waitForSelector('mat-card-title'),
     ]);
-    await page.waitForFunction(() => {
-      const images = document.querySelectorAll('mat-card img');
-      return images && images.length && [...images].map(e => e.complete).every(Boolean);
-    });
+    // await page.waitForFunction(() => {
+    //   const images = document.querySelectorAll('mat-card img');
+    //   return images && images.length && [...images].map(e => e.complete).every(Boolean);
+    // });
     await page.waitForTimeout(1500);
     await screenshot(page, 'search.png');
   });
